@@ -87,7 +87,7 @@ main {
   word-break: break-word;
 }
 
-.divBtnDeleteTask {
+/* .divBtnDeleteTask {
   display: none;
   top: 0;
   left: 0;
@@ -106,7 +106,7 @@ main {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
+} */
 
 .cardPicture {
   margin: 0.25rem;

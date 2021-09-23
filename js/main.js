@@ -1,5 +1,6 @@
 let tasks = document.getElementById("tasks");
-let taskName = document.getElementById("taskName");
+let taskNameInput = document.getElementById("taskName");
+// let taskName = document.querySelector("taskName");
 let dateCompletion = document.getElementById("dateCompletion");
 // let pictureForm = document.getElementById("pictureForm");
 // let descriptionForm = document.getElementById("descriptionForm");
@@ -33,12 +34,12 @@ btnCloseForm.onclick = function() {
 }
 
 btnAddTask.addEventListener("click", function () {
-  if ((taskName.value == "") || (dateCompletion.value == "")){
-    taskName.focus();
+  if ((taskNameInput.value == "") || (dateCompletion.value == "")){
+    taskNameInput.focus();
 
     alert("Por favor, preencha os 3 campos!");
 
-    // taskName.value = "Filhote de Labrador";
+    // taskNameInput.value = "Filhote de Labrador";
     // pictureForm.value = "https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg";
     // descriptionForm.value = "Lorem ipsum, dolor sit amet";
   } else {
@@ -52,7 +53,33 @@ btnAddTask.addEventListener("click", function () {
     taskContent.setAttribute("class", "taskContent");
     task.appendChild(taskContent);
 
-    taskContent.innerHTML += `<h2 class="taskName">${taskName.value}</h2>`;
+    let checkbox = document.createElement("input");
+    checkbox.setAttribute("type", "checkbox");
+    checkbox.setAttribute("name", "checkTask");
+    task.appendChild(checkbox);
+
+    // checkbox.onclick = function() {
+    //   if(check)
+    // }
+
+    let taskNameOnCard = document.createElement("h2");
+    taskNameOnCard.setAttribute("class", "taskName");
+    taskNameOnCard.innerHTML += taskNameInput.value;
+    // taskNameOnCard.innerHTML += `<h2 class="taskName">${taskNameInput.value}</h2>`;
+    taskContent.appendChild(taskNameOnCard);
+
+    checkbox.addEventListener('change', (event) => {
+      if (event.currentTarget.checked) {
+        taskName.style.textDecoration = "line-through";
+      } else {
+        taskName.style.textDecoration = "none";
+      }
+    })
+
+    
+    
+
+    // taskContent.innerHTML += `<h2 class="taskName">${taskNameInput.value}</h2>`;
     taskContent.innerHTML += `<h4 class="dateCompletion">${dateCompletion.value}</h4>`;
 
     let divBtnDeleteTask = document.createElement("div");
@@ -72,9 +99,9 @@ btnAddTask.addEventListener("click", function () {
       divBtnDeleteTask.style.display = "none";
     })
 
-    taskName.focus();
+    taskNameInput.focus();
 
-    // taskName.value = "Filhote de Labrador";
+    // taskNameInput.value = "Filhote de Labrador";
     // pictureForm.value = "https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg";
     // descriptionForm.value = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident facere, iure laborum impedit rem tempore cum?";
 
@@ -110,7 +137,6 @@ window.onclick = function(event) {
 }
 
 
-// adicionar checkbox
 // quando clicar no checkbox, riscar o escrito
 // adicionar data de criacao automaticamente pelo js
 // abrir confirm quando clicar para excluir a task "deseja mesmo excluir?"
