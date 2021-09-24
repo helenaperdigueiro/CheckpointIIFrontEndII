@@ -22,7 +22,7 @@ document.querySelector("form").onsubmit = function () { return false };
 // let btnOpenTeam = document.getElementById("btnOpenTeam");
 
 btnOpenForm.onclick = function() {
-  if (extraDivForm.style.display == "none") {
+  if(extraDivForm.style.display == "none") {
     extraDivForm.style.display = "block";
   } else {
     extraDivForm.style.display = "none";
@@ -33,11 +33,12 @@ btnCloseForm.onclick = function() {
   extraDivForm.style.display = "none";
 }
 
+
 btnAddTask.addEventListener("click", function () {
   if ((taskNameInput.value == "") || (dateCompletion.value == "")){
     taskNameInput.focus();
 
-    alert("Por favor, preencha os 3 campos!");
+    alert("Por favor, preencha os 2 campos!");
 
     // taskNameInput.value = "Filhote de Labrador";
     // pictureForm.value = "https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg";
@@ -49,48 +50,51 @@ btnAddTask.addEventListener("click", function () {
     task.setAttribute("class", "task");
     tasks.appendChild(task);
 
-    let taskContent = document.createElement("div");
-    taskContent.setAttribute("class", "taskContent");
-    task.appendChild(taskContent);
-
+    let date = new Date();
+    let dateCreationFormat = (date.getDate())+'/'+(date.getMonth()+1)+'/'+date.getFullYear();
+    let dateCreation = document.createTextNode(dateCreationFormat);
+    task.appendChild(dateCreation);
+    
     let checkbox = document.createElement("input");
     checkbox.setAttribute("type", "checkbox");
     checkbox.setAttribute("name", "checkTask");
     task.appendChild(checkbox);
 
-    // checkbox.onclick = function() {
-    //   if(check)
-    // }
-
-    let taskNameOnCard = document.createElement("h2");
-    taskNameOnCard.setAttribute("class", "taskName");
-    taskNameOnCard.innerHTML += taskNameInput.value;
-    // taskNameOnCard.innerHTML += `<h2 class="taskName">${taskNameInput.value}</h2>`;
-    taskContent.appendChild(taskNameOnCard);
-
     checkbox.addEventListener('change', (event) => {
       if (event.currentTarget.checked) {
-        taskName.style.textDecoration = "line-through";
+        taskNameOnCard.style.textDecoration = "line-through";
       } else {
-        taskName.style.textDecoration = "none";
+        taskNameOnCard.style.textDecoration = "none";
       }
     })
 
-    
-    
+    let taskNameOnCard = document.createElement("div");
+    taskNameOnCard.setAttribute("class", "taskNameOnCard");
+    // taskNameOnCard.innerHTML += taskNameInput.value;
+    taskNameOnCard.innerHTML += `<h2 class="taskNameOnCard">${taskNameInput.value}</h2>`;
+    task.appendChild(taskNameOnCard);
 
-    // taskContent.innerHTML += `<h2 class="taskName">${taskNameInput.value}</h2>`;
-    taskContent.innerHTML += `<h4 class="dateCompletion">${dateCompletion.value}</h4>`;
+    let taskDateCompletion = document.createElement("div");
+    taskDateCompletion.setAttribute("class", "taskDateCompletion");
+    taskDateCompletion.innerHTML += `<h4 class="dateCompletion">${dateCompletion.value}</h4>`;
+    task.appendChild(taskDateCompletion);
+
+    // taskDateCompletion.innerHTML += `<h2 class="taskName">${taskNameInput.value}</h2>`;
+    // taskDateCompletion.innerHTML += `<h4 class="dateCompletion">${dateCompletion.value}</h4>`;
 
     let divBtnDeleteTask = document.createElement("div");
     divBtnDeleteTask.setAttribute("class", "divBtnDeleteTask");
     task.appendChild(divBtnDeleteTask);
 
     let btnDeleteTask = document.createElement("img");
-    btnDeleteTask.setAttribute("src", "./imgs/btnDeleteTask.svg");
+    btnDeleteTask.setAttribute("src", "https://cdn-icons-png.flaticon.com/512/1250/1250180.png");
     btnDeleteTask.setAttribute("class", "btnDeleteTask");
     divBtnDeleteTask.appendChild(btnDeleteTask);
-    btnDeleteTask.addEventListener("click", function () { task.remove() });
+    btnDeleteTask.addEventListener("click", function () {
+      if(window.confirm("Tem certeza que deseja excluir esta tarefa?")) {
+        task.remove();
+      }
+    })
 
     task.addEventListener("mouseover", function() {
       divBtnDeleteTask.style.display = "block";
@@ -137,13 +141,11 @@ window.onclick = function(event) {
 }
 
 
-// quando clicar no checkbox, riscar o escrito
-// adicionar data de criacao automaticamente pelo js
-// abrir confirm quando clicar para excluir a task "deseja mesmo excluir?"
-
 //OPCIONAIS (SOH DEPOIS QUE TUDO ESTIVER PRONTO!!!):
 // local storage
 // escolher cor do fundo do card
+// contagem regressiva de quantos dias ainda tem para realizar a tarefa
+// tarefa completada opacidade menor (parecer disabled)
 
 // OBS:
 // API de datas

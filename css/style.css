@@ -67,46 +67,53 @@ main {
   padding: 0.5rem;
   border: 5px solid #FFD5D5;
   border-radius: 1rem;
-  columns: 5 200px;
+  /* columns: 5 200px; */
   column-gap: 0;
 }
 
 .task {
   border: solid black 1px;
-  padding: 0.5rem;
-  margin-top: 2%;
+  padding: 2rem;
+  margin-top: 0;
   text-align: center;
   border-radius: 1rem;
-  display: inline-block;
-  position: relative;
+  /* display: inline-block;
+  position: relative; */
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
 }
 
-.taskContent {
+.taskDateCompletion {
   text-align: center;
-  width: 100%;
   word-break: break-word;
 }
 
-/* .divBtnDeleteTask {
-  display: none;
+.divBtnDeleteTask {
+  /* display: none;
   top: 0;
   left: 0;
   border-radius: 1rem;
   background: rgba(255, 0, 0, 0.61);
-  position: absolute;
-  width: 100%;
-  height: 100%;
+  position: absolute; */
+  /* width: 100%;
+  height: 100%; */
+  
 }
 
 .btnDeleteTask {
-  max-width: 6rem;
-  position: absolute;
-  top: 32%;
+  width: 1.5rem;
+  display: flex;
+  align-self: center;
+  /* max-width: 6rem; */
+  /* position: absolute; */
+  /* top: 32%;
   left: 32%;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-} */
+  transform: translate(-50%, -50%); */
+}
 
 .cardPicture {
   margin: 0.25rem;
