@@ -1,3 +1,13 @@
+let resposta = "";
+
+fetch("https://jsonplaceholder.typicode.com/todos/")
+.then((response) => response.json())
+.then((json) => {
+  resposta = json
+  console.log(resposta);
+});
+
+
 let tasks = document.getElementById("tasks");
 let taskNameInput = document.getElementById("taskName");
 // let taskName = document.querySelector("taskName");
