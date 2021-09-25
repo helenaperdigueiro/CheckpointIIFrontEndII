@@ -45,15 +45,20 @@ btnAddTask.addEventListener("click", function () {
     // descriptionForm.value = "Lorem ipsum, dolor sit amet";
   } else {
     tasks.style.height = "auto";
+    
 
     let task = document.createElement("div");
     task.setAttribute("class", "task");
     tasks.appendChild(task);
 
+    let divDateCreation = document.createElement("div");
+    divDateCreation.setAttribute("class", "dateCreation");
     let date = new Date();
     let dateCreationFormat = (date.getDate())+'/'+(date.getMonth()+1)+'/'+date.getFullYear();
     let dateCreation = document.createTextNode(dateCreationFormat);
-    task.appendChild(dateCreation);
+    // dateCreationFormat.setAttribute("class", "dateCreation");
+    divDateCreation.appendChild(dateCreation);
+    task.appendChild(divDateCreation);
     
     let checkbox = document.createElement("input");
     checkbox.setAttribute("type", "checkbox");
@@ -63,6 +68,7 @@ btnAddTask.addEventListener("click", function () {
     checkbox.addEventListener('change', (event) => {
       if (event.currentTarget.checked) {
         taskNameOnCard.style.textDecoration = "line-through";
+        task.style.opacity = "50%"
       } else {
         taskNameOnCard.style.textDecoration = "none";
       }
@@ -143,10 +149,7 @@ window.onclick = function(event) {
 
 //OPCIONAIS (SOH DEPOIS QUE TUDO ESTIVER PRONTO!!!):
 // local storage
-// nao deixar a data limite 
+// nao deixar a data limite ser antes da criacao (Ailla)
 // escolher cor do fundo do card
 // contagem regressiva de quantos dias ainda tem para realizar a tarefa
 // tarefa completada opacidade menor (parecer disabled)
-
-// OBS:
-// API de datas

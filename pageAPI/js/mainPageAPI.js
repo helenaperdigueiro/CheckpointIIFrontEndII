@@ -1,13 +1,3 @@
-let resposta = "";
-
-fetch("https://jsonplaceholder.typicode.com/todos/")
-.then((response) => response.json())
-.then((json) => {
-  resposta = json
-  console.log(resposta);
-});
-
-
 let tasks = document.getElementById("tasks");
 let taskNameInput = document.getElementById("taskName");
 // let taskName = document.querySelector("taskName");
@@ -25,27 +15,117 @@ let btnAddTask = document.getElementById("btnAddTask");
 
 document.querySelector("form").onsubmit = function () { return false };
 
+
+window.onload = function () {
+
+  fetch("https://jsonplaceholder.typicode.com/todos/")
+    .then(response => response.json())
+    .then(result => {
+      result.forEach(object => {
+      
+      // document.getElementById(taskName) = result.title;
+
+      tasks.style.height = "auto";
+
+      let task = document.createElement("div");
+      task.setAttribute("class", "task");
+      tasks.appendChild(task);
+
+      let taskDateCompletion = document.createElement("div");
+      taskDateCompletion.setAttribute("class", "taskDateCompletion");
+      taskDateCompletion.innerHTML += `<h4 class="dateCompletion">${object.id}</h4>`;
+      task.appendChild(taskDateCompletion);
+
+
+
+      let checkbox = document.createElement("input");
+      checkbox.setAttribute("type", "checkbox");
+      checkbox.setAttribute("name", "checkTask");
+      task.appendChild(checkbox);
+
+      // checkbox.addEventListener('change', (event) => {
+      //   if (event.currentTarget.checked) {
+      //     taskNameOnCard.style.textDecoration = "line-through";
+      //   } else {
+      //     taskNameOnCard.style.textDecoration = "none";
+      //   }
+      // })
+
+      let taskNameOnCard = document.createElement("div");
+      taskNameOnCard.setAttribute("class", "taskNameOnCard");
+      // taskNameOnCard.innerHTML += taskNameInput.value;
+      taskNameOnCard.innerHTML += `<p class="taskNameOnCard">${object.title}</p>`;
+      task.appendChild(taskNameOnCard);
+
+      if(object.completed) {
+        taskNameOnCard.style.textDecoration = "line-through";
+      } else {
+        taskNameOnCard.style.fontWeight = "bold";
+      }
+
+      let date = new Date();
+      let dateCreationFormat = (date.getDate()) + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+      let dateCreation = document.createTextNode(dateCreationFormat);
+      task.appendChild(dateCreation);
+
+      // taskDateCompletion.innerHTML += `<h2 class="taskName">${taskNameInput.value}</h2>`;
+      // taskDateCompletion.innerHTML += `<h4 class="dateCompletion">${dateCompletion.value}</h4>`;
+
+      let divBtnDeleteTask = document.createElement("div");
+      divBtnDeleteTask.setAttribute("class", "divBtnDeleteTask");
+      task.appendChild(divBtnDeleteTask);
+
+      let btnDeleteTask = document.createElement("img");
+      btnDeleteTask.setAttribute("src", "https://cdn-icons-png.flaticon.com/512/1250/1250180.png");
+      btnDeleteTask.setAttribute("class", "btnDeleteTask");
+      divBtnDeleteTask.appendChild(btnDeleteTask);
+      btnDeleteTask.addEventListener("click", function () {
+        if (window.confirm("Tem certeza que deseja excluir esta tarefa?")) {
+          task.remove();
+        }
+      })
+
+      task.addEventListener("mouseover", function () {
+        divBtnDeleteTask.style.display = "block";
+      })
+      task.addEventListener("mouseout", function () {
+        divBtnDeleteTask.style.display = "none";
+      })
+
+      taskNameInput.focus();
+
+      // taskNameInput.value = "Filhote de Labrador";
+      // pictureForm.value = "https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg";
+      // descriptionForm.value = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident facere, iure laborum impedit rem tempore cum?";
+
+      document.querySelectorAll("input").forEach((item) => item.value = "");
+
+    })
+  })
+}
+
+
 // let extraDivContact = document.getElementById("extraDivContact");
 // let btnOpenContact = document.getElementById("btnOpenContact");
 
 // let extraDivTeam = document.getElementById("extraDivTeam");
 // let btnOpenTeam = document.getElementById("btnOpenTeam");
 
-btnOpenForm.onclick = function() {
-  if(extraDivForm.style.display == "none") {
+btnOpenForm.onclick = function () {
+  if (extraDivForm.style.display == "none") {
     extraDivForm.style.display = "block";
   } else {
     extraDivForm.style.display = "none";
   }
 }
 
-btnCloseForm.onclick = function() {
+btnCloseForm.onclick = function () {
   extraDivForm.style.display = "none";
 }
 
 
 btnAddTask.addEventListener("click", function () {
-  if ((taskNameInput.value == "") || (dateCompletion.value == "")){
+  if ((taskNameInput.value == "") || (dateCompletion.value == "")) {
     taskNameInput.focus();
 
     alert("Por favor, preencha os 2 campos!");
@@ -61,10 +141,10 @@ btnAddTask.addEventListener("click", function () {
     tasks.appendChild(task);
 
     let date = new Date();
-    let dateCreationFormat = (date.getDate())+'/'+(date.getMonth()+1)+'/'+date.getFullYear();
+    let dateCreationFormat = (date.getDate()) + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
     let dateCreation = document.createTextNode(dateCreationFormat);
     task.appendChild(dateCreation);
-    
+
     let checkbox = document.createElement("input");
     checkbox.setAttribute("type", "checkbox");
     checkbox.setAttribute("name", "checkTask");
@@ -101,15 +181,15 @@ btnAddTask.addEventListener("click", function () {
     btnDeleteTask.setAttribute("class", "btnDeleteTask");
     divBtnDeleteTask.appendChild(btnDeleteTask);
     btnDeleteTask.addEventListener("click", function () {
-      if(window.confirm("Tem certeza que deseja excluir esta tarefa?")) {
+      if (window.confirm("Tem certeza que deseja excluir esta tarefa?")) {
         task.remove();
       }
     })
 
-    task.addEventListener("mouseover", function() {
+    task.addEventListener("mouseover", function () {
       divBtnDeleteTask.style.display = "block";
     })
-    task.addEventListener("mouseout", function() {
+    task.addEventListener("mouseout", function () {
       divBtnDeleteTask.style.display = "none";
     })
 
@@ -140,13 +220,13 @@ btnAddTask.addEventListener("click", function () {
 //   }
 // }
 
-window.onclick = function(event) {
+window.onclick = function (event) {
   if (event.target == extraDivForm) {
     extraDivForm.style.display = "none";
-//   } if (event.target == extraDivContact) {
-//     extraDivContact.style.display = "none";
-//   } if (event.target == extraDivTeam) {
-//     extraDivTeam.style.display = "none";
+    //   } if (event.target == extraDivContact) {
+    //     extraDivContact.style.display = "none";
+    //   } if (event.target == extraDivTeam) {
+    //     extraDivTeam.style.display = "none";
   }
 }
 
