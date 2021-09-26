@@ -35,6 +35,7 @@ btnCloseForm.onclick = function () {
 
 
 btnAddTask.addEventListener("click", function () {
+  
   if ((taskNameInput.value == "") || (dateCompletion.value == "")) {
     taskNameInput.focus();
 
@@ -60,8 +61,7 @@ btnAddTask.addEventListener("click", function () {
     divDateCreation.appendChild(dateCreation);
     task.appendChild(divDateCreation);
 
-    //nao funciona na primeira vez. passa a funcionar a partir da segunda
-
+    //nao funciona na primeira vez. passa a funcionar a partir da segunda: (Ailla)
     dateCompletion.addEventListener("change", function () {
 
       const date = dateCompletion.value.split("-");
@@ -82,26 +82,30 @@ btnAddTask.addEventListener("click", function () {
       }
     });
     let dateCompletionFormat = dateCompletion.value.split('-').reverse().join('/');
+    
 
     let checkbox = document.createElement("input");
     checkbox.setAttribute("type", "checkbox");
     checkbox.setAttribute("name", "checkTask");
     task.appendChild(checkbox);
-
-    checkbox.addEventListener('change', (event) => {
-      if (event.currentTarget.checked) {
-        taskNameOnCard.style.textDecoration = "line-through";
-        task.style.opacity = "50%"
-      } else {
-        taskNameOnCard.style.textDecoration = "none";
-      }
-    })
-
+    
     let taskNameOnCard = document.createElement("div");
     taskNameOnCard.setAttribute("class", "taskNameOnCard");
     // taskNameOnCard.innerHTML += taskNameInput.value;
     taskNameOnCard.innerHTML += `<h2 class="taskNameOnCard">${taskNameInput.value}</h2>`;
     task.appendChild(taskNameOnCard);
+    
+    taskNameOnCard.style.textDecoration = "none";
+    
+    checkbox.addEventListener('change', (event) => {
+      if (taskNameOnCard.style.textDecoration == "none") {
+        taskNameOnCard.style.textDecoration = "line-through";
+        task.style.opacity = "60%";
+      } else {
+        taskNameOnCard.style.textDecoration = "none";
+        task.style.opacity = "100%";
+      }
+    })
 
     let taskDateCompletion = document.createElement("div");
     taskDateCompletion.setAttribute("class", "taskDateCompletion");
