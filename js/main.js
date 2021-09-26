@@ -62,7 +62,8 @@ btnAddTask.addEventListener("click", function () {
     task.appendChild(divDateCreation);
 
     //nao funciona na primeira vez. passa a funcionar a partir da segunda: (Ailla)
-    dateCompletion.addEventListener("change", function () {
+    // change e input dão o mesmo resultado
+    dateCompletion.addEventListener("input", function () {
 
       const date = dateCompletion.value.split("-");
       const today = new Date;
@@ -97,7 +98,7 @@ btnAddTask.addEventListener("click", function () {
     
     taskNameOnCard.style.textDecoration = "none";
     
-    checkbox.addEventListener('change', (event) => {
+    checkbox.addEventListener('change', () => {
       if (taskNameOnCard.style.textDecoration == "none") {
         taskNameOnCard.style.textDecoration = "line-through";
         task.style.opacity = "60%";
