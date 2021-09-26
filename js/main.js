@@ -21,21 +21,21 @@ document.querySelector("form").onsubmit = function () { return false };
 // let extraDivTeam = document.getElementById("extraDivTeam");
 // let btnOpenTeam = document.getElementById("btnOpenTeam");
 
-btnOpenForm.onclick = function() {
-  if(extraDivForm.style.display == "none") {
+btnOpenForm.onclick = function () {
+  if (extraDivForm.style.display == "none") {
     extraDivForm.style.display = "block";
   } else {
     extraDivForm.style.display = "none";
   }
 }
 
-btnCloseForm.onclick = function() {
+btnCloseForm.onclick = function () {
   extraDivForm.style.display = "none";
 }
 
 
 btnAddTask.addEventListener("click", function () {
-  if ((taskNameInput.value == "") || (dateCompletion.value == "")){
+  if ((taskNameInput.value == "") || (dateCompletion.value == "")) {
     taskNameInput.focus();
 
     alert("Por favor, preencha os 2 campos!");
@@ -45,7 +45,7 @@ btnAddTask.addEventListener("click", function () {
     // descriptionForm.value = "Lorem ipsum, dolor sit amet";
   } else {
     tasks.style.height = "auto";
-    
+
 
     let task = document.createElement("div");
     task.setAttribute("class", "task");
@@ -54,12 +54,35 @@ btnAddTask.addEventListener("click", function () {
     let divDateCreation = document.createElement("div");
     divDateCreation.setAttribute("class", "dateCreation");
     let date = new Date();
-    let dateCreationFormat = (date.getDate())+'/'+(date.getMonth()+1)+'/'+date.getFullYear();
+    let dateCreationFormat = (date.getDate()) + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
     let dateCreation = document.createTextNode(dateCreationFormat);
     // dateCreationFormat.setAttribute("class", "dateCreation");
     divDateCreation.appendChild(dateCreation);
     task.appendChild(divDateCreation);
-    
+
+    //nao funciona na primeira vez. passa a funcionar a partir da segunda
+
+    dateCompletion.addEventListener("change", function () {
+
+      const date = dateCompletion.value.split("-");
+      const today = new Date;
+      const todayD = today.getDate();
+      const todayM = today.getMonth() + 1;
+      const todayY = today.getFullYear();
+
+      if (date[0] < todayY) reset();
+      if (date[1] < todayM && date[0] == todayY) reset();
+      if (date[2] < todayD && date[1] == todayM && date[0] == todayY) reset();
+
+      function reset() {
+        // dateCompletion.classList.add("invalid");
+        dateCompletion.value = ""
+        // document.getElementById(`${dateCompletion.id}-label`).classList.remove("hidden");
+
+      }
+    });
+    let dateCompletionFormat = dateCompletion.value.split('-').reverse().join('/');
+
     let checkbox = document.createElement("input");
     checkbox.setAttribute("type", "checkbox");
     checkbox.setAttribute("name", "checkTask");
@@ -82,7 +105,7 @@ btnAddTask.addEventListener("click", function () {
 
     let taskDateCompletion = document.createElement("div");
     taskDateCompletion.setAttribute("class", "taskDateCompletion");
-    taskDateCompletion.innerHTML += `<h4 class="dateCompletion">${dateCompletion.value}</h4>`;
+    taskDateCompletion.innerHTML += `<h4 class="dateCompletion">${dateCompletionFormat}</h4>`;
     task.appendChild(taskDateCompletion);
 
     // taskDateCompletion.innerHTML += `<h2 class="taskName">${taskNameInput.value}</h2>`;
@@ -97,15 +120,15 @@ btnAddTask.addEventListener("click", function () {
     btnDeleteTask.setAttribute("class", "btnDeleteTask");
     divBtnDeleteTask.appendChild(btnDeleteTask);
     btnDeleteTask.addEventListener("click", function () {
-      if(window.confirm("Tem certeza que deseja excluir esta tarefa?")) {
+      if (window.confirm("Tem certeza que deseja excluir esta tarefa?")) {
         task.remove();
       }
     })
 
-    task.addEventListener("mouseover", function() {
+    task.addEventListener("mouseover", function () {
       divBtnDeleteTask.style.display = "block";
     })
-    task.addEventListener("mouseout", function() {
+    task.addEventListener("mouseout", function () {
       divBtnDeleteTask.style.display = "none";
     })
 
@@ -136,13 +159,13 @@ btnAddTask.addEventListener("click", function () {
 //   }
 // }
 
-window.onclick = function(event) {
+window.onclick = function (event) {
   if (event.target == extraDivForm) {
     extraDivForm.style.display = "none";
-//   } if (event.target == extraDivContact) {
-//     extraDivContact.style.display = "none";
-//   } if (event.target == extraDivTeam) {
-//     extraDivTeam.style.display = "none";
+    //   } if (event.target == extraDivContact) {
+    //     extraDivContact.style.display = "none";
+    //   } if (event.target == extraDivTeam) {
+    //     extraDivTeam.style.display = "none";
   }
 }
 
