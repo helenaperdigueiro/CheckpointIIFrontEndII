@@ -43,11 +43,11 @@ function addSavedTask(object) {
     checkbox.setAttribute("name", "checkTask");
     // checkbox.setAttribute("value", object.checkboxChecked);
     // checkbox.setAttribute("value", object.checkboxChecked);
-    if (object.checkboxChecked) {
-      checkbox.setAttribute("checked", "checked");
-    }
+    // if (object.checkboxChecked) {
+    //   checkbox.setAttribute("checked", "checked");
+    // }
 
-    console.log(object.checkboxChecked);
+    // console.log(object.checkboxChecked);
     task.appendChild(checkbox);
 
     //aqui:
