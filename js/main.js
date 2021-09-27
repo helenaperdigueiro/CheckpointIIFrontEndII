@@ -43,8 +43,12 @@ function addSavedTask(object) {
     checkbox.setAttribute("name", "checkTask");
     // checkbox.setAttribute("value", object.checkboxChecked);
     // checkbox.setAttribute("value", object.checkboxChecked);
+
+    //Mudei de lugar
     // if (object.checkboxChecked) {
     //   checkbox.setAttribute("checked", "checked");
+    //   taskNameOnCard.style.textDecoration = "line-through";
+    //   task.style.opacity = "60%";
     // }
 
     // console.log(object.checkboxChecked);
@@ -59,6 +63,12 @@ function addSavedTask(object) {
 
     taskNameOnCard.style.textDecoration = "none";
 
+    if (object.checkboxChecked) {
+      checkbox.setAttribute("checked", "checked");
+      taskNameOnCard.style.textDecoration = "line-through"; //novo
+      task.style.opacity = "60%"; //novo
+    }
+
     checkbox.addEventListener('change', () => {
       console.log("este");
       if (taskNameOnCard.style.textDecoration == "none") {
@@ -66,10 +76,12 @@ function addSavedTask(object) {
         task.style.opacity = "60%";
         object.checkboxChecked = true;
         console.log(object.checkboxChecked);
+        localStorage.setItem("savedTasks", JSON.stringify(taskList));
       } else {
         taskNameOnCard.style.textDecoration = "none";
         task.style.opacity = "100%";
         object.checkboxChecked = false;
+        localStorage.setItem("savedTasks", JSON.stringify(taskList));
       }
       
       // localStorage.setItem("savedTasks.checkboxChecked", true);
