@@ -15,6 +15,12 @@ let btnAddTask = document.getElementById("btnAddTask");
 
 document.querySelector("form").onsubmit = function () { return false };
 
+let taskList = localStorage.getItem("savedTasks")
+      ? JSON.parse(localStorage.getItem("savedTasks"))
+      : [];
+
+
+
 // let extraDivContact = document.getElementById("extraDivContact");
 // let btnOpenContact = document.getElementById("btnOpenContact");
 
@@ -22,7 +28,7 @@ document.querySelector("form").onsubmit = function () { return false };
 // let btnOpenTeam = document.getElementById("btnOpenTeam");
 
 let today = new Date().toLocaleDateString().split('/');
-let today2 = today[2] + '-' + (("0" + today[0]).slice(-2)) + '-'  + (("0" + today[1]).slice(-2));
+let today2 = today[2] + '-' + (("0" + today[0]).slice(-2)) + '-' + (("0" + today[1]).slice(-2));
 dateCompletion.setAttribute('min', today2);
 
 btnOpenForm.onclick = function () {
@@ -37,9 +43,8 @@ btnCloseForm.onclick = function () {
   extraDivForm.style.display = "none";
 }
 
-
 btnAddTask.addEventListener("click", function () {
-  
+
   if ((taskNameInput.value == "") || (dateCompletion.value == "")) {
     taskNameInput.focus();
 
@@ -51,7 +56,6 @@ btnAddTask.addEventListener("click", function () {
   } else {
     tasks.style.height = "auto";
 
-
     let task = document.createElement("div");
     task.setAttribute("class", "task");
     tasks.appendChild(task);
@@ -59,48 +63,27 @@ btnAddTask.addEventListener("click", function () {
     let divDateCreation = document.createElement("div");
     divDateCreation.setAttribute("class", "dateCreation");
     let date = new Date();
-    let dateCreationFormat = (date.getDate()) + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+    let dateCreationFormat = (("0" + date.getDate()).slice(-2)) + '/' + (("0" + (date.getMonth() + 1)).slice(-2)) + '/' + date.getFullYear();
     let dateCreation = document.createTextNode(dateCreationFormat);
     // dateCreationFormat.setAttribute("class", "dateCreation");
     divDateCreation.appendChild(dateCreation);
     task.appendChild(divDateCreation);
 
-    //nao funciona na primeira vez. passa a funcionar a partir da segunda: (Ailla)
-    // change e input dão o mesmo resultado
-    // dateCompletion.addEventListener("input", function () {
-
-    //   const date = dateCompletion.value.split("-");
-    //   const today = new Date;
-    //   const todayD = today.getDate();
-    //   const todayM = today.getMonth() + 1;
-    //   const todayY = today.getFullYear();
-
-    //   if (date[0] < todayY) reset();
-    //   if (date[1] < todayM && date[0] == todayY) reset();
-    //   if (date[2] < todayD && date[1] == todayM && date[0] == todayY) reset();
-
-    //   function reset() {
-        // dateCompletion.classList.add("invalid");
-        // dateCompletion.value = ""
-        // document.getElementById(`${dateCompletion.id}-label`).classList.remove("hidden");
-
-    //   }
-    // });
     let dateCompletionFormat = dateCompletion.value.split('-').reverse().join('/');
-    
+
     let checkbox = document.createElement("input");
     checkbox.setAttribute("type", "checkbox");
     checkbox.setAttribute("name", "checkTask");
     task.appendChild(checkbox);
-    
+
     let taskNameOnCard = document.createElement("div");
     taskNameOnCard.setAttribute("class", "taskNameOnCard");
     // taskNameOnCard.innerHTML += taskNameInput.value;
     taskNameOnCard.innerHTML += `<h2 class="taskNameOnCard">${taskNameInput.value}</h2>`;
     task.appendChild(taskNameOnCard);
-    
+
     taskNameOnCard.style.textDecoration = "none";
-    
+
     checkbox.addEventListener('change', () => {
       if (taskNameOnCard.style.textDecoration == "none") {
         taskNameOnCard.style.textDecoration = "line-through";
@@ -147,6 +130,20 @@ btnAddTask.addEventListener("click", function () {
     // descriptionForm.value = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident facere, iure laborum impedit rem tempore cum?";
 
     document.querySelectorAll("input").forEach((item) => item.value = "");
+  
+    let taskInfo = {
+      dateCreation: dateCreationFormat,
+      checkboxChecked: checkbox.checked,
+      taskNameOnCard: taskNameOnCard.textContent,
+      dateCompletion: dateCompletionFormat
+    }
+
+    taskList.push(taskInfo);
+
+    console.log(taskList);
+
+    //Salvando as tarefas no Local Storage (console - application)
+    localStorage.setItem("savedTasks", JSON.stringify(taskList));
   }
 })
 
@@ -180,7 +177,6 @@ window.onclick = function (event) {
 
 //OPCIONAIS (SOH DEPOIS QUE TUDO ESTIVER PRONTO!!!):
 // local storage
-// nao deixar a data limite ser antes da criacao (Ailla)
 // escolher cor do fundo do card
-// contagem regressiva de quantos dias ainda tem para realizar a tarefa
-// tarefa completada opacidade menor (parecer disabled)
+// contagem regressiva de quantos dias ainda tem para realizar a tarefa (opcional nosso)
+// minimo 10 caracteres
