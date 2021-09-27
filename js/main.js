@@ -21,6 +21,10 @@ document.querySelector("form").onsubmit = function () { return false };
 // let extraDivTeam = document.getElementById("extraDivTeam");
 // let btnOpenTeam = document.getElementById("btnOpenTeam");
 
+let today = new Date().toLocaleDateString().split('/');
+let today2 = today[2] + '-' + (("0" + today[0]).slice(-2)) + '-'  + (("0" + today[1]).slice(-2));
+dateCompletion.setAttribute('min', today2);
+
 btnOpenForm.onclick = function () {
   if (extraDivForm.style.display == "none") {
     extraDivForm.style.display = "block";
@@ -63,28 +67,27 @@ btnAddTask.addEventListener("click", function () {
 
     //nao funciona na primeira vez. passa a funcionar a partir da segunda: (Ailla)
     // change e input dão o mesmo resultado
-    dateCompletion.addEventListener("input", function () {
+    // dateCompletion.addEventListener("input", function () {
 
-      const date = dateCompletion.value.split("-");
-      const today = new Date;
-      const todayD = today.getDate();
-      const todayM = today.getMonth() + 1;
-      const todayY = today.getFullYear();
+    //   const date = dateCompletion.value.split("-");
+    //   const today = new Date;
+    //   const todayD = today.getDate();
+    //   const todayM = today.getMonth() + 1;
+    //   const todayY = today.getFullYear();
 
-      if (date[0] < todayY) reset();
-      if (date[1] < todayM && date[0] == todayY) reset();
-      if (date[2] < todayD && date[1] == todayM && date[0] == todayY) reset();
+    //   if (date[0] < todayY) reset();
+    //   if (date[1] < todayM && date[0] == todayY) reset();
+    //   if (date[2] < todayD && date[1] == todayM && date[0] == todayY) reset();
 
-      function reset() {
+    //   function reset() {
         // dateCompletion.classList.add("invalid");
-        dateCompletion.value = ""
+        // dateCompletion.value = ""
         // document.getElementById(`${dateCompletion.id}-label`).classList.remove("hidden");
 
-      }
-    });
+    //   }
+    // });
     let dateCompletionFormat = dateCompletion.value.split('-').reverse().join('/');
     
-
     let checkbox = document.createElement("input");
     checkbox.setAttribute("type", "checkbox");
     checkbox.setAttribute("name", "checkTask");
