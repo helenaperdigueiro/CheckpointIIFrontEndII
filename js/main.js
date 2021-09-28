@@ -1,9 +1,6 @@
 let tasks = document.getElementById("tasks");
 let taskNameInput = document.getElementById("taskName");
-// let taskName = document.querySelector("taskName");
 let dateCompletion = document.getElementById("dateCompletion");
-// let pictureForm = document.getElementById("pictureForm");
-// let descriptionForm = document.getElementById("descriptionForm");
 let btnDeleteTask = document.querySelectorAll("btnDeleteTask");
 
 let btnOpenForm = document.getElementById("btnOpenForm");
@@ -14,6 +11,10 @@ let formAddTask = document.getElementById("formAddTask");
 let btnAddTask = document.getElementById("btnAddTask");
 let extraDivFormTeam = document.getElementById("extraDivFormTeam");
 let btnOpenTeam = document.getElementById("btnOpenTeam");
+
+let today = new Date().toLocaleDateString().split('/');
+let today2 = today[2] + '-' + (("0" + today[0]).slice(-2)) + '-' + (("0" + today[1]).slice(-2));
+dateCompletion.setAttribute('min', today2);
 
 document.querySelector("form").onsubmit = function () { return false };
 
@@ -110,11 +111,22 @@ function addSavedTask(object) {
   task.addEventListener("mouseout", function () {
     divBtnDeleteTask.style.opacity = "0";
   })
-}
 
-let today = new Date().toLocaleDateString().split('/');
-let today2 = today[2] + '-' + (("0" + today[0]).slice(-2)) + '-' + (("0" + today[1]).slice(-2));
-dateCompletion.setAttribute('min', today2);
+  let todayToCompare = today2.split('-');
+  let todayToCompareDate = new Date(todayToCompare[0], todayToCompare[1] - 1, todayToCompare[2]);
+
+  let dateCompletionDate = object.dateCompletion.split('/');
+  let dateCompletionToCompare = new Date(dateCompletionDate[2], dateCompletionDate[1] - 1, dateCompletionDate[0]);
+
+  let dateDifference = Math.abs(dateCompletionToCompare - todayToCompareDate);
+
+  if (dateDifference <= 86400000) {
+    taskDateCompletion.style.animationName = "alertaData";
+    taskDateCompletion.style.animationDuration = "10s";
+    taskDateCompletion.style.animationIterationCount = "infinite";
+    taskDateCompletion.style.fontWeight = "bold";
+  }
+}
 
 btnOpenForm.onclick = function () {
   if (extraDivForm.style.display == "none") {
@@ -134,9 +146,9 @@ btnAddTask.addEventListener("click", function () {
     taskNameInput.focus();
 
     alert("Por favor, preencha os 2 campos!");
-  
-  } else if (taskNameInput.value.length < 10) {
-    alert("A tarefa deve ter no mínimo 10 caracteres.");
+
+  } else if (taskNameInput.value.length < 2) {
+    alert("A tarefa deve ter no mínimo 2 caracteres.");
     taskNameInput.focus();
     return;
   } else {
@@ -147,8 +159,8 @@ btnAddTask.addEventListener("click", function () {
     tasks.appendChild(task);
 
     let divDateCreationBtnDelete = document.createElement("div");
-  divDateCreationBtnDelete.setAttribute("class", "divDateCreationBtnDelete");
-  task.appendChild(divDateCreationBtnDelete);
+    divDateCreationBtnDelete.setAttribute("class", "divDateCreationBtnDelete");
+    task.appendChild(divDateCreationBtnDelete);
 
     let divDateCreation = document.createElement("div");
     divDateCreation.setAttribute("class", "dateCreation");
@@ -238,10 +250,26 @@ btnAddTask.addEventListener("click", function () {
 
     //Salvando as tarefas no Local Storage (console - application)
     localStorage.setItem("savedTasks", JSON.stringify(taskList));
+
+    let todayToCompare = today2.split('-');
+    let todayToCompareDate = new Date(todayToCompare[0], todayToCompare[1] - 1, todayToCompare[2]);
+
+    let dateCompletionDate = dateCompletionFormat.split('/');
+    let dateCompletionToCompare = new Date(dateCompletionDate[2], dateCompletionDate[1] - 1, dateCompletionDate[0]);
+
+    let dateDifference = Math.abs(dateCompletionToCompare - todayToCompareDate);
+
+
+    if (dateDifference <= 86400000) {
+      taskDateCompletion.style.animationName = "alertaData";
+      taskDateCompletion.style.animationDuration = "10s";
+      taskDateCompletion.style.animationIterationCount = "infinite";
+      taskDateCompletion.style.fontWeight = "bold";
+    }
   }
 })
 
-btnOpenTeam.onclick = function() {
+btnOpenTeam.onclick = function () {
   if (extraDivFormTeam.style.display == "none") {
     extraDivFormTeam.style.display = "block";
   } else {
@@ -250,7 +278,7 @@ btnOpenTeam.onclick = function() {
 }
 
 // função que permite fechar os formulários clicando fora deles
-window.onclick = function(event) {
+window.onclick = function (event) {
   if (event.target == extraDivForm) {
     extraDivForm.style.display = "none";
   } if (event.target == extraDivFormTeam) {
