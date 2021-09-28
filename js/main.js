@@ -135,6 +135,10 @@ btnAddTask.addEventListener("click", function () {
 
     alert("Por favor, preencha os 2 campos!");
   
+  } else if (taskNameInput.value.length < 10) {
+    alert("A tarefa deve ter no mínimo 10 caracteres.");
+    taskNameInput.focus();
+    return;
   } else {
     tasks.style.height = "auto";
 
@@ -254,11 +258,5 @@ window.onclick = function(event) {
   }
 }
 
-
-
-
 //OPCIONAIS (SOH DEPOIS QUE TUDO ESTIVER PRONTO!!!):
-// local storage
 // escolher cor do fundo do card
-// contagem regressiva de quantos dias ainda tem para realizar a tarefa (opcional nosso)
-// minimo 10 caracteres
