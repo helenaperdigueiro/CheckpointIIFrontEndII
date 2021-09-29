@@ -244,6 +244,11 @@ main {
   cursor: pointer;
 }
 
+#btnsForm {
+  display: flex;
+  justify-content: space-around;
+}
+
 @keyframes slideUp {
   from {transform: translateY(100%);}
   to{transform: translateX(0%);}
@@ -368,12 +373,15 @@ footer {
     grid-template-columns: 1fr 9fr;
     align-items: baseline;
     column-gap: 0.5rem;
-  }  
+  }
 }
 
 @media screen and (min-width: 385px) {
   h1 {
     display: block;
+  }
+  #btnsForm {
+    padding: 0 3rem;
   }
 }
 
@@ -387,8 +395,13 @@ footer {
   #extraDivForm {
     padding: 0 12.5%;
   }
+
   #extraFormAddTask {
     width: 75%;
+  }
+
+  #btnsForm {
+    padding: 0 5rem;
   }
 }
 
@@ -396,8 +409,13 @@ footer {
   #extraDivForm {
     padding: 0 20%;
   }
+
   #extraFormAddTask {
     width: 60%;
+  }
+
+  #btnsForm {
+    padding: 0 6rem;
   }
 }
 
@@ -405,15 +423,23 @@ footer {
   #extraDivForm {
     padding: 0 30%;
   }
+
   #extraFormAddTask {
     width: 40%;
   }
+
   #tasks {
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 0.5rem;
     grid-auto-rows: min-content;
-}
-  .divBtnDeleteTask { opacity: 0; }
-  .task:hover .divBtnDeleteTask { opacity: 1; }
+  }
+
+  .divBtnDeleteTask {
+    opacity: 0;
+  }
+
+  .task:hover .divBtnDeleteTask {
+    opacity: 1;
+  }
 }

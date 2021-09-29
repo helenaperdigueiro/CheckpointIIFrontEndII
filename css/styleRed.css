@@ -381,12 +381,6 @@ footer {
   }
 }
 
-/* @media screen and (min-width: 280px) {
-  #subtitle {
-    font-size: 2rem;
-  }
-} */
-
 @media screen and (min-width: 350px) {
   #inputsFormAddTask label {
     font-size: 1rem;
