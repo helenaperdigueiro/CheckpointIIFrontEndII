@@ -1,9 +1,6 @@
 let tasks = document.getElementById("tasks");
 let taskNameInput = document.getElementById("taskName");
-// let taskName = document.querySelector("taskName");
 let dateCompletion = document.getElementById("dateCompletion");
-// let pictureForm = document.getElementById("pictureForm");
-// let descriptionForm = document.getElementById("descriptionForm");
 let btnDeleteTask = document.querySelectorAll("btnDeleteTask");
 
 let btnOpenForm = document.getElementById("btnOpenForm");
@@ -12,94 +9,39 @@ let extraDivForm = document.getElementById("extraDivForm");
 let formAddTask = document.getElementById("formAddTask");
 
 let btnAddTask = document.getElementById("btnAddTask");
+let extraDivFormTeam = document.getElementById("extraDivFormTeam");
+let btnOpenTeam = document.getElementById("btnOpenTeam");
+
+let blueTheme = document.getElementById("blueTheme");
+let redTheme = document.getElementById("redTheme");
+let greenTheme = document.getElementById("greenTheme");
+let darkTheme = document.getElementById("darkTheme");
+
+blueTheme.onclick = function () {
+  let theme = document.getElementsByTagName('link')[0]
+  theme.setAttribute("href", "../css/styleBlue.css")
+}
+
+redTheme.onclick = function () {
+  let theme = document.getElementsByTagName('link')[0]
+  theme.setAttribute("href", "../css/styleRed.css")
+}
+
+greenTheme.onclick = function () {
+  let theme = document.getElementsByTagName('link')[0]
+  theme.setAttribute("href", "../css/styleGreen.css")
+}
+
+darkTheme.onclick = function () {
+  let theme = document.getElementsByTagName('link')[0]
+  theme.setAttribute("href", "../css/styleDark.css")
+}
+
+let today = new Date().toLocaleDateString().split('/');
+let today2 = today[2] + '-' + (("0" + today[0]).slice(-2)) + '-' + (("0" + today[1]).slice(-2));
+dateCompletion.setAttribute('min', today2);
 
 document.querySelector("form").onsubmit = function () { return false };
-
-
-window.onload = function () {
-
-  fetch("https://jsonplaceholder.typicode.com/todos/")
-    .then(response => response.json())
-    .then(result => {
-      result.forEach(object => {
-      
-      // document.getElementById(taskName) = result.title;
-
-      tasks.style.height = "auto";
-
-      let task = document.createElement("div");
-      task.setAttribute("class", "task");
-      tasks.appendChild(task);
-
-      let taskDateCompletion = document.createElement("div");
-      taskDateCompletion.setAttribute("class", "taskDateCompletion");
-      taskDateCompletion.innerHTML += `<h4 class="dateCompletion">${object.id}</h4>`;
-      task.appendChild(taskDateCompletion);
-
-
-
-      let checkbox = document.createElement("input");
-      checkbox.setAttribute("type", "checkbox");
-      checkbox.setAttribute("name", "checkTask");
-      task.appendChild(checkbox);
-
-      // checkbox.addEventListener('change', (event) => {
-      //   if (event.currentTarget.checked) {
-      //     taskNameOnCard.style.textDecoration = "line-through";
-      //   } else {
-      //     taskNameOnCard.style.textDecoration = "none";
-      //   }
-      // })
-
-      let taskNameOnCard = document.createElement("div");
-      taskNameOnCard.setAttribute("class", "taskNameOnCard");
-      // taskNameOnCard.innerHTML += taskNameInput.value;
-      taskNameOnCard.innerHTML += `<p class="taskNameOnCard">${object.title}</p>`;
-      task.appendChild(taskNameOnCard);
-
-      if(object.completed) {
-        taskNameOnCard.style.textDecoration = "line-through";
-      } else {
-        taskNameOnCard.style.fontWeight = "bold";
-      }
-
-      let date = new Date();
-      let dateCreationFormat = (date.getDate()) + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
-      let dateCreation = document.createTextNode(dateCreationFormat);
-      task.appendChild(dateCreation);
-
-      // taskDateCompletion.innerHTML += `<h2 class="taskName">${taskNameInput.value}</h2>`;
-      // taskDateCompletion.innerHTML += `<h4 class="dateCompletion">${dateCompletion.value}</h4>`;
-
-      let divBtnDeleteTask = document.createElement("div");
-      divBtnDeleteTask.setAttribute("class", "divBtnDeleteTask");
-      task.appendChild(divBtnDeleteTask);
-
-      let btnDeleteTask = document.createElement("img");
-      btnDeleteTask.setAttribute("src", "https://cdn-icons-png.flaticon.com/512/1250/1250180.png");
-      btnDeleteTask.setAttribute("class", "btnDeleteTask");
-      divBtnDeleteTask.appendChild(btnDeleteTask);
-      btnDeleteTask.addEventListener("click", function () {
-        if (window.confirm("Tem certeza que deseja excluir esta tarefa?")) {
-          task.remove();
-        }
-      })
-
-      // task.addEventListener("mouseover", function () {
-      //   divBtnDeleteTask.style.display = "block";
-      // })
-      // task.addEventListener("mouseout", function () {
-      //   divBtnDeleteTask.style.display = "none";
-      // })
-
-      taskNameInput.focus();
-
-
-      document.querySelectorAll("input").forEach((item) => item.value = "");
-
-    })
-  })
-}
 
 btnOpenForm.onclick = function () {
   if (extraDivForm.style.display == "none") {
@@ -113,120 +55,108 @@ btnCloseForm.onclick = function () {
   extraDivForm.style.display = "none";
 }
 
+window.onload = function () {
 
-btnAddTask.addEventListener("click", function () {
-  if ((taskNameInput.value == "") || (dateCompletion.value == "")) {
-    taskNameInput.focus();
+  fetch("https://jsonplaceholder.typicode.com/todos/")
+    .then(response => response.json())
+    .then(result => {
+      result.forEach(object => {
 
-    alert("Por favor, preencha os 2 campos!");
+        tasks.style.height = "auto";
 
-    // taskNameInput.value = "Filhote de Labrador";
-    // pictureForm.value = "https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg";
-    // descriptionForm.value = "Lorem ipsum, dolor sit amet";
-  } else {
-    tasks.style.height = "auto";
+        let task = document.createElement("div");
+        task.setAttribute("class", "task");
+        tasks.appendChild(task);
 
-    let task = document.createElement("div");
-    task.setAttribute("class", "task");
-    tasks.appendChild(task);
+        let divDateCreationBtnDelete = document.createElement("div");
+        divDateCreationBtnDelete.setAttribute("class", "divDateCreationBtnDelete");
+        task.appendChild(divDateCreationBtnDelete);
 
-    let date = new Date();
-    let dateCreationFormat = (date.getDate()) + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
-    let dateCreation = document.createTextNode(dateCreationFormat);
-    task.appendChild(dateCreation);
+        let divDateCreation = document.createElement("div");
+        divDateCreation.setAttribute("class", "dateCreation");
+        let date = new Date();
+        let dateCreationFormat = (("0" + date.getDate()).slice(-2)) + '/' + (("0" + (date.getMonth() + 1)).slice(-2)) + '/' + date.getFullYear();
+        let dateCreation = document.createTextNode(dateCreationFormat);
+        divDateCreation.appendChild(dateCreation);
+        divDateCreationBtnDelete.appendChild(divDateCreation);
 
-    let checkbox = document.createElement("input");
-    checkbox.setAttribute("type", "checkbox");
-    checkbox.setAttribute("name", "checkTask");
-    task.appendChild(checkbox);
+        let divCheckboxName = document.createElement("div");
+        divCheckboxName.setAttribute("class", "divCheckboxName");
+        task.appendChild(divCheckboxName);
 
-    checkbox.addEventListener('change', (event) => {
-      if (event.currentTarget.checked) {
-        taskNameOnCard.style.textDecoration = "line-through";
-      } else {
+        let checkbox = document.createElement("input");
+        checkbox.setAttribute("type", "checkbox");
+        checkbox.setAttribute("name", "checkTask");
+        checkbox.setAttribute("class", "checkbox");
+        divCheckboxName.appendChild(checkbox);
+
+        let taskNameOnCard = document.createElement("div");
+        taskNameOnCard.setAttribute("class", "taskNameOnCard");
+        taskNameOnCard.innerHTML += `<h2>${object.title}</h2>`;
+        divCheckboxName.appendChild(taskNameOnCard);
+
         taskNameOnCard.style.textDecoration = "none";
-      }
+
+        if (object.completed) {
+          taskNameOnCard.style.textDecoration = "line-through";
+          task.style.opacity = "60%";
+          checkbox.setAttribute("checked", "checked");
+        } else {
+          taskNameOnCard.style.fontWeight = "bold";
+        }
+
+        let taskDateCompletion = document.createElement("div");
+        taskDateCompletion.setAttribute("class", "taskDateCompletion");
+        taskDateCompletion.innerHTML += `<p class="dateCompletion">${object.id}</p>`;
+        task.appendChild(taskDateCompletion);
+
+        let divBtnDeleteTask = document.createElement("div");
+        divBtnDeleteTask.setAttribute("class", "divBtnDeleteTask");
+        divDateCreationBtnDelete.appendChild(divBtnDeleteTask);
+
+        let btnDeleteTask = document.createElement("img");
+        btnDeleteTask.setAttribute("src", "../img/btnDelgrafite.png");
+        btnDeleteTask.setAttribute("class", "btnDeleteTask");
+        divBtnDeleteTask.appendChild(btnDeleteTask);
+        btnDeleteTask.addEventListener("click", function () {
+          if (window.confirm("Tem certeza que deseja excluir esta tarefa?")) {
+            task.remove();
+            let objectIndex = taskList.indexOf(taskInfo);
+            taskList.splice(objectIndex, 1);
+            localStorage.setItem("savedTasks", JSON.stringify(taskList));
+          }
+        })
+
+        taskNameInput.focus();
+
+        document.querySelectorAll("input").forEach((item) => item.value = "");
+
+        checkbox.addEventListener('change', () => {
+          if (taskNameOnCard.style.textDecoration == "none") {
+            taskNameOnCard.style.textDecoration = "line-through";
+            task.style.opacity = "60%";
+          } else {
+            taskNameOnCard.style.textDecoration = "none";
+            task.style.opacity = "100%";
+          }
+        })
+      })
     })
+}
 
-    let taskNameOnCard = document.createElement("div");
-    taskNameOnCard.setAttribute("class", "taskNameOnCard");
-    // taskNameOnCard.innerHTML += taskNameInput.value;
-    taskNameOnCard.innerHTML += `<h2 class="taskNameOnCard">${taskNameInput.value}</h2>`;
-    task.appendChild(taskNameOnCard);
-
-    let taskDateCompletion = document.createElement("div");
-    taskDateCompletion.setAttribute("class", "taskDateCompletion");
-    taskDateCompletion.innerHTML += `<h4 class="dateCompletion">${dateCompletion.value}</h4>`;
-    task.appendChild(taskDateCompletion);
-
-    // taskDateCompletion.innerHTML += `<h2 class="taskName">${taskNameInput.value}</h2>`;
-    // taskDateCompletion.innerHTML += `<h4 class="dateCompletion">${dateCompletion.value}</h4>`;
-
-    let divBtnDeleteTask = document.createElement("div");
-    divBtnDeleteTask.setAttribute("class", "divBtnDeleteTask");
-    task.appendChild(divBtnDeleteTask);
-
-    let btnDeleteTask = document.createElement("img");
-    btnDeleteTask.setAttribute("src", "https://cdn-icons-png.flaticon.com/512/1250/1250180.png");
-    btnDeleteTask.setAttribute("class", "btnDeleteTask");
-    divBtnDeleteTask.appendChild(btnDeleteTask);
-    btnDeleteTask.addEventListener("click", function () {
-      if (window.confirm("Tem certeza que deseja excluir esta tarefa?")) {
-        task.remove();
-      }
-    })
-
-    // task.addEventListener("mouseover", function () {
-    //   divBtnDeleteTask.style.display = "block";
-    // })
-    // task.addEventListener("mouseout", function () {
-    //   divBtnDeleteTask.style.display = "none";
-    // })
-
-    taskNameInput.focus();
-
-    // taskNameInput.value = "Filhote de Labrador";
-    // pictureForm.value = "https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg";
-    // descriptionForm.value = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident facere, iure laborum impedit rem tempore cum?";
-
-    document.querySelectorAll("input").forEach((item) => item.value = "");
-  }
-})
-
-
-// btnOpenContact.onclick = function() {
-//   if (extraDivContact.style.display == "none") {
-//     extraDivContact.style.display = "block";
-//   } else {
-//     extraDivContact.style.display = "none";
-//   }
-// }
-
-// btnOpenTeam.onclick = function() {
-//   if (extraDivTeam.style.display == "none") {
-//     extraDivTeam.style.display = "block";
-//   } else {
-//     extraDivTeam.style.display = "none";
-//   }
-// }
-
-window.onclick = function (event) {
-  if (event.target == extraDivForm) {
-    extraDivForm.style.display = "none";
-    //   } if (event.target == extraDivContact) {
-    //     extraDivContact.style.display = "none";
-    //   } if (event.target == extraDivTeam) {
-    //     extraDivTeam.style.display = "none";
+btnOpenTeam.onclick = function () {
+  if (extraDivFormTeam.style.display == "none") {
+    extraDivFormTeam.style.display = "block";
+  } else {
+    extraDivFormTeam.style.display = "none";
   }
 }
 
-
-//OPCIONAIS (SOH DEPOIS QUE TUDO ESTIVER PRONTO!!!):
-// local storage
-// nao deixar a data limite 
-// escolher cor do fundo do card
-// contagem regressiva de quantos dias ainda tem para realizar a tarefa
-// tarefa completada opacidade menor (parecer disabled)
-
-// OBS:
-// API de datas
+// função que permite fechar os formulários clicando fora deles
+window.onclick = function (event) {
+  if (event.target == extraDivForm) {
+    extraDivForm.style.display = "none";
+  } if (event.target == extraDivFormTeam) {
+    extraDivFormTeam.style.display = "none";
+  }
+}

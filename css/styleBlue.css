@@ -1,5 +1,4 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Carter+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Handlee&family=Roboto:wght@400;700&display=swap');
 
 * {
   margin: 0;
@@ -46,10 +45,10 @@ header {
 
 #subtitle {
   align-self: flex-end;
-  font-size: 1rem;
+  font-size: 2rem;
   font-weight: normal;
   color: rgb(106, 106, 106);
-  font-family: 'Carter One', cursive;
+  font-family: 'Handlee', cursive;
 }
 
 .btnThemeColor {
@@ -135,6 +134,11 @@ main {
   font-size: 0.8rem;
   justify-self: right;
   color: var(--text-color);
+}
+
+.taskDateCompletionAnimation {
+  animation: alertaData 10s infinite;
+  font-weight: bold;
 }
 
 .divBtnDeleteTask {
@@ -346,12 +350,6 @@ footer {
   50% {color: var(--text-color);}
   75% {color: var(--main-color);}
   100% {color: var(--text-color);}
-}
-
-@media screen and (min-width: 280px) {
-#subtitle {
-  font-size: 1.2rem;
-}
 }
 
 @media screen and (min-width: 350px) {

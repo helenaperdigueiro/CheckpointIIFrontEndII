@@ -1,5 +1,4 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Carter+One&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Handlee&family=Roboto:wght@400;700&display=swap');
 
 * {
   margin: 0;
@@ -48,7 +47,7 @@ header {
   font-size: 2rem;
   font-weight: normal;
   color: rgb(106, 106, 106);
-  font-family: 'Patrick Hand', cursive;
+  font-family: 'Handlee', cursive;
 }
 
 .btnThemeColor {
@@ -134,6 +133,11 @@ main {
   font-size: 0.8rem;
   justify-self: right;
   color: var(--text-color);
+}
+
+.taskDateCompletionAnimation {
+  animation: alertaData 10s infinite;
+  font-weight: bold;
 }
 
 .divBtnDeleteTask {

@@ -1,5 +1,4 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Carter+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Handlee&family=Roboto:wght@400;700&display=swap');
 
 * {
   margin: 0;
@@ -47,10 +46,10 @@ header {
 
 #subtitle {
   align-self: flex-end;
-  font-size: 1rem;
+  font-size: 2rem;
   font-weight: normal;
   color: var(--text-color);
-  font-family: 'Carter One', cursive;
+  font-family: 'Handlee', cursive;
 }
 
 .btnThemeColor {
@@ -138,6 +137,11 @@ main {
   color: var(--text-color);
 }
 
+.taskDateCompletionAnimation {
+  animation: alertaData 10s infinite;
+  font-weight: bold;
+}
+
 .divBtnDeleteTask {
   opacity: 1;
   align-self: center;
@@ -185,7 +189,7 @@ main {
   bottom: 14vh;
   width: 85%;
   border-radius: 1rem;
-  border: 1px var(--text-color) solid;
+  border: 1px var(--main-color) solid;
 }
 
 #inputsFormAddTask {
@@ -330,7 +334,7 @@ footer {
   background-color: white;
   border: solid 1px var(--main-color);
   border-radius: 1rem;
-  color: var(--text-color);
+  color: var(--main-color);
 }
 
 .team {
@@ -347,12 +351,6 @@ footer {
     50% {color: var(--text-color);}
     75% {color: var(--main-color);}
     100% {color: var(--text-color);}
-}
-
-@media screen and (min-width: 280px) {
-  #subtitle {
-    font-size: 1.2rem;
-  }
 }
 
 @media screen and (min-width: 350px) {

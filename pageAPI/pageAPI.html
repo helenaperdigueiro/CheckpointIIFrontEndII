@@ -6,105 +6,81 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/styleRed.css">
 
-    <title>Organizador de tarefas</title>
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/3208/3208615.png" type="image/x-icon">
+    <title>OhMyTasks!</title>
 </head>
 
 <body>
     <header>
-        <div id="brand">
-            <!-- <h1 id="task">C</h1>
-            <h1>ard</h1>
-            <h1 id="stock">S</h1>
-            <h1>tock</h1> -->
+        <div>
+            <h2 id="subtitle">OhMyTasks!</h2>
+        </div>
+        <div>
+            <button id="redTheme" class="btnThemeColor"></button>
+            <button id="greenTheme" class="btnThemeColor"></button>
+            <button id="blueTheme" class="btnThemeColor"></button>
+            <button id="darkTheme" class="btnThemeColor"></button>
         </div>
 
-        <h2 id="subtitle">ORGANIZADOR DE TAREFAS</h2>
     </header>
     <main>
 
         <div id="tasks">
         </div>
 
-        <div id="linkAPI">
-            <a href="./pageAPI/pageAPI.html">Página com API</a>
-        </div>
-
-        <img src="https://cdn-icons-png.flaticon.com/512/1250/1250151.png" id="btnOpenForm" alt="Adicionar Tarefa">
-
         <div id="extraDivForm" style="display: none">
             <div id="extraFormAddTask">
                 <form id="formAddTask">
-                    <img src="https://cdn-icons-png.flaticon.com/512/1250/1250180.png" id="btnCloseForm" alt="Fechar formulário">
+                    <img src="../img/btnDelgrafite.png" id="btnCloseForm" alt="Fechar formulário">
 
-                    <fieldset>
-                        <legend>Inspirações</legend>
+                    <div id="inputsFormAddTask">
+                        <label for="taskName">Tarefa</label>
+                        <input type="text" name="taskName" placeholder="Tarefa" id="taskName">
+                        <label for="dateCompletion">Data limite</label>
+                        <input type="date" name="dateCompletion" id="dateCompletion">
+                    </div>
 
-                        <div id="inputsFormAddTask">
-                            <label for="taskName">Tarefa</label>
-                            <input type="text" name="taskName" placeholder="Tarefa" id="taskName">
-                            <label for="dateCompletion">Data limite</label>
-                            <input type="date" name="dateCompletion" id="dateCompletion">
-                        </div>
-
-                        <div id="btnsForm">
-                            <button type="submit" id="btnAddTask">Adicionar</button>
-                            <button type="reset">Limpar</button>
-                        </div>
-
-                    </fieldset>
+                    <div id="btnsForm">
+                        <button type="submit" id="btnAddTask">Adicionar</button>
+                        <button type="reset" id="btnReset">Limpar</button>
+                    </div>
                 </form>
             </div>
         </div>
     </main>
     <footer>
-        <!-- <button id="btnOpenContact"><img
-            src="https://image.flaticon.com/icons/png/512/3885/3885190.png" class="btnOp" alt="">
-            <p class="btnText">Fale conosco</p>
-        </button> -->
-        <!-- <div id="extraDivContact" style="display: none;">
-            <div class="form-popup" id="contact">
-                <form class="form-container">
-                    <h2>Fale conosco</h2>
 
-                    <label for="name"><b>Nome</b></label>
-                    <input type="text" placeholder="Insira seu nome" name="name" required>
-
-                    <label for="email"><b>Email</b></label>
-                    <input type="email" placeholder="Insira seu email" name="email" required>
-
-                    <label for="message"><b>Mensagem</b></label>
-                    <textarea placeholder="Escreva sua mensagem" name="message" cols="20" rows="5" required></textarea>
-
-                    <button type="submit" class="btn">Enviar</button>
-                </form>
-            </div>
-        </div> -->
-
-        <!-- <button id="btnOpenTeam"><img
-            src="https://image.flaticon.com/icons/png/512/1534/1534952.png" class="btnOp" alt="">
-            <p class="btnText">Equipe</p>
+        <button id="btnLinkAPI">
+            <a href="../index.html">OMT</a>
         </button>
-        <div id="extraDivTeam" style="display: none;">
-            <div class="form-popup2" id="team">
-                <div class="form-container2">
-                    <h2>Equipe</h2>
 
+        <img src="../img/btnplus.png" id="btnOpenForm" alt="Adicionar Tarefa">
+
+        <button id="btnOpenTeam">
+            <p>Team</p>
+        </button>
+        <div id="extraDivFormTeam" style="display: none;">
+
+            <!-- equipe -->
+            <div class="team" id="team">
+                <div>
+                    <h2>Team</h2>
                     <ul>
                         <li>Ailla Freire</li>
                         <li>Carolina Hakamada</li>
-                        <li>Dominic Lourenço</li>
+                        <li>Clarissa Farencena</li>
                         <li>Helena Perdigueiro</li>
+                        <li>Rafaela Rodrigues</li>
                         <li>Renata Leal</li>
-                        <li>Ruthiane Teixeira</li>
+                        <li>Vitor Bessoni</li>
+
                     </ul>
                 </div>
             </div>
-        </div> -->
+        </div>
+
     </footer>
 
     <script src="./js/mainPageAPI.js"></script>

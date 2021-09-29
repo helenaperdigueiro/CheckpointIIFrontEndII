@@ -86,32 +86,49 @@ function addSavedTask(object) {
 
   taskNameOnCard.style.textDecoration = "none";
 
-  if (object.checkboxChecked) {
-    checkbox.setAttribute("checked", "checked");
-    taskNameOnCard.style.textDecoration = "line-through";
-    task.style.opacity = "60%";
-  }
+  let todayToCompare = today2.split('-');
+  let todayToCompareDate = new Date(todayToCompare[0], todayToCompare[1] - 1, todayToCompare[2]);
 
-  checkbox.addEventListener('change', () => {
-    console.log("este");
-    if (taskNameOnCard.style.textDecoration == "none") {
-      taskNameOnCard.style.textDecoration = "line-through";
-      task.style.opacity = "60%";
-      object.checkboxChecked = true;
+  let dateCompletionDate = object.dateCompletion.split('/');
+  let dateCompletionToCompare = new Date(dateCompletionDate[2], dateCompletionDate[1] - 1, dateCompletionDate[0]);
 
-      localStorage.setItem("savedTasks", JSON.stringify(taskList));
-    } else {
-      taskNameOnCard.style.textDecoration = "none";
-      task.style.opacity = "100%";
-      object.checkboxChecked = false;
-      localStorage.setItem("savedTasks", JSON.stringify(taskList));
-    }
-  })
+  let dateDifference = Math.abs(dateCompletionToCompare - todayToCompareDate);
 
   let taskDateCompletion = document.createElement("div");
   taskDateCompletion.setAttribute("class", "taskDateCompletion");
   taskDateCompletion.innerHTML += `<p class="dateCompletion">${object.dateCompletion}</p>`;
   task.appendChild(taskDateCompletion);
+
+
+  function ifDate() {if (dateDifference <= 86400000) {
+    taskDateCompletion.classList.add("taskDateCompletionAnimation");
+  }}
+
+  ifDate();
+
+  checkbox.addEventListener('change', () => {
+    if (taskNameOnCard.style.textDecoration == "none") {
+      taskNameOnCard.style.textDecoration = "line-through";
+      task.style.opacity = "60%";
+      object.checkboxChecked = true;
+      taskDateCompletion.classList.remove("taskDateCompletionAnimation");
+      localStorage.setItem("savedTasks", JSON.stringify(taskList));
+    } else {
+      taskNameOnCard.style.textDecoration = "none";
+      task.style.opacity = "100%";
+      object.checkboxChecked = false;
+      ifDate();
+      localStorage.setItem("savedTasks", JSON.stringify(taskList));
+    }
+    
+  })
+
+  if (object.checkboxChecked) {
+    checkbox.setAttribute("checked", "checked");
+    taskNameOnCard.style.textDecoration = "line-through";
+    task.style.opacity = "60%";
+    taskDateCompletion.classList.remove("taskDateCompletionAnimation");
+  }
 
   let divBtnDeleteTask = document.createElement("div");
   divBtnDeleteTask.setAttribute("class", "divBtnDeleteTask");
@@ -129,21 +146,6 @@ function addSavedTask(object) {
       localStorage.setItem("savedTasks", JSON.stringify(taskList));
     }
   })
-
-  let todayToCompare = today2.split('-');
-  let todayToCompareDate = new Date(todayToCompare[0], todayToCompare[1] - 1, todayToCompare[2]);
-
-  let dateCompletionDate = object.dateCompletion.split('/');
-  let dateCompletionToCompare = new Date(dateCompletionDate[2], dateCompletionDate[1] - 1, dateCompletionDate[0]);
-
-  let dateDifference = Math.abs(dateCompletionToCompare - todayToCompareDate);
-
-  if (dateDifference <= 86400000) {
-    taskDateCompletion.style.animationName = "alertaData";
-    taskDateCompletion.style.animationDuration = "10s";
-    taskDateCompletion.style.animationIterationCount = "infinite";
-    taskDateCompletion.style.fontWeight = "bold";
-  }
 }
 
 btnOpenForm.onclick = function () {
@@ -242,28 +244,6 @@ btnAddTask.addEventListener("click", function () {
       dateCompletion: dateCompletionFormat
     }
 
-    //AQUI AINDA NAO ESTA CERTO:
-    checkbox.addEventListener('change', () => {
-      if (taskNameOnCard.style.textDecoration == "none") {
-        taskNameOnCard.style.textDecoration = "line-through";
-        task.style.opacity = "60%";
-        taskInfo.checkboxChecked = true;
-        localStorage.setItem("savedTasks", JSON.stringify(taskList));
-      } else {
-        taskNameOnCard.style.textDecoration = "none";
-        task.style.opacity = "100%";
-        taskInfo.checkboxChecked = false;
-        localStorage.setItem("savedTasks", JSON.stringify(taskList));
-      }
-    })
-
-    taskList.push(taskInfo);
-
-    console.log(taskList);
-
-    //Salvando as tarefas no Local Storage (console - application)
-    localStorage.setItem("savedTasks", JSON.stringify(taskList));
-
     let todayToCompare = today2.split('-');
     let todayToCompareDate = new Date(todayToCompare[0], todayToCompare[1] - 1, todayToCompare[2]);
 
@@ -272,13 +252,33 @@ btnAddTask.addEventListener("click", function () {
 
     let dateDifference = Math.abs(dateCompletionToCompare - todayToCompareDate);
 
+    function ifDate() {if (dateDifference <= 86400000) {
+      taskDateCompletion.classList.add("taskDateCompletionAnimation");
+    }}
 
-    if (dateDifference <= 86400000) {
-      taskDateCompletion.style.animationName = "alertaData";
-      taskDateCompletion.style.animationDuration = "10s";
-      taskDateCompletion.style.animationIterationCount = "infinite";
-      taskDateCompletion.style.fontWeight = "bold";
-    }
+    ifDate();
+
+    checkbox.addEventListener('change', () => {
+      if (taskNameOnCard.style.textDecoration == "none") {
+        taskNameOnCard.style.textDecoration = "line-through";
+        task.style.opacity = "60%";
+        taskInfo.checkboxChecked = true;
+        taskDateCompletion.classList.remove("taskDateCompletionAnimation");
+        localStorage.setItem("savedTasks", JSON.stringify(taskList));
+      } else {
+        taskNameOnCard.style.textDecoration = "none";
+        task.style.opacity = "100%";
+        taskInfo.checkboxChecked = false;
+        ifDate();
+        localStorage.setItem("savedTasks", JSON.stringify(taskList));
+
+      }
+    })
+
+    taskList.push(taskInfo);
+
+    //Salvando as tarefas no Local Storage (console - application)
+    localStorage.setItem("savedTasks", JSON.stringify(taskList));
   }
 })
 
