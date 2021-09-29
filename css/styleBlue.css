@@ -243,6 +243,11 @@ main {
   cursor: pointer;
 }
 
+#btnsForm {
+  display: flex;
+  justify-content: space-around;
+}
+
 @keyframes slideUp {
   from {transform: translateY(100%);}
   to{transform: translateX(0%);}

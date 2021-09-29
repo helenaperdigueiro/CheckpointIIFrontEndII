@@ -298,6 +298,3 @@ window.onclick = function (event) {
     extraDivFormTeam.style.display = "none";
   }
 }
-
-//OPCIONAIS (SOH DEPOIS QUE TUDO ESTIVER PRONTO!!!):
-// escolher cor do fundo do card

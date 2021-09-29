@@ -246,6 +246,11 @@ main {
   cursor: pointer;
 }
 
+#btnsForm {
+  display: flex;
+  justify-content: space-around;
+}
+
 @keyframes slideUp {
   from {
     transform: translateY(100%);
@@ -404,6 +409,9 @@ footer {
   h1 {
     display: block;
   }
+  #btnsForm {
+    padding: 0 3rem;
+  }
 }
 
 @media screen and (min-width: 600px) {
@@ -420,6 +428,10 @@ footer {
   #extraFormAddTask {
     width: 75%;
   }
+
+  #btnsForm {
+    padding: 0 5rem;
+  }
 }
 
 @media screen and (min-width: 700px) {
@@ -429,6 +441,10 @@ footer {
 
   #extraFormAddTask {
     width: 60%;
+  }
+
+  #btnsForm {
+    padding: 0 6rem;
   }
 }
 
