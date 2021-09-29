@@ -12,6 +12,31 @@ let btnAddTask = document.getElementById("btnAddTask");
 let extraDivFormTeam = document.getElementById("extraDivFormTeam");
 let btnOpenTeam = document.getElementById("btnOpenTeam");
 
+let blueTheme = document.getElementById("blueTheme");
+let redTheme = document.getElementById("redTheme");
+let greenTheme = document.getElementById("greenTheme");
+let darkTheme = document.getElementById("darkTheme");
+
+blueTheme.onclick = function() {
+  let theme = document.getElementsByTagName('link')[0]
+  theme.setAttribute("href", "./css/styleBlue.css")
+}
+
+redTheme.onclick = function() {
+  let theme = document.getElementsByTagName('link')[0]
+  theme.setAttribute("href", "./css/styleRed.css")
+}
+
+greenTheme.onclick = function() {
+  let theme = document.getElementsByTagName('link')[0]
+  theme.setAttribute("href", "./css/styleGreen.css")
+}
+
+darkTheme.onclick = function() {
+  let theme = document.getElementsByTagName('link')[0]
+  theme.setAttribute("href", "./css/styleDark.css")
+}
+
 let today = new Date().toLocaleDateString().split('/');
 let today2 = today[2] + '-' + (("0" + today[0]).slice(-2)) + '-' + (("0" + today[1]).slice(-2));
 dateCompletion.setAttribute('min', today2);
@@ -105,13 +130,6 @@ function addSavedTask(object) {
     }
   })
 
-  task.addEventListener("mouseover", function () {
-    divBtnDeleteTask.style.opacity = "1";
-  })
-  task.addEventListener("mouseout", function () {
-    divBtnDeleteTask.style.opacity = "0";
-  })
-
   let todayToCompare = today2.split('-');
   let todayToCompareDate = new Date(todayToCompare[0], todayToCompare[1] - 1, todayToCompare[2]);
 
@@ -150,8 +168,10 @@ btnAddTask.addEventListener("click", function () {
   } else if (taskNameInput.value.length < 2) {
     alert("A tarefa deve ter no mínimo 2 caracteres.");
     taskNameInput.focus();
-    return;
-  } else {
+  } else if (taskNameInput.value.length > 100) {
+    alert("A tarefa deve ter no máximo 100 caracteres.");
+  }
+  else {
     tasks.style.height = "auto";
 
     let task = document.createElement("div");
@@ -209,13 +229,6 @@ btnAddTask.addEventListener("click", function () {
         taskList.splice(objectIndex, 1);
         localStorage.setItem("savedTasks", JSON.stringify(taskList));
       }
-    })
-
-    task.addEventListener("mouseover", function () {
-      divBtnDeleteTask.style.opacity = "1";
-    })
-    task.addEventListener("mouseout", function () {
-      divBtnDeleteTask.style.opacity = "0";
     })
 
     taskNameInput.focus();

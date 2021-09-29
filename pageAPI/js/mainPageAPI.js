@@ -85,31 +85,21 @@ window.onload = function () {
         }
       })
 
-      task.addEventListener("mouseover", function () {
-        divBtnDeleteTask.style.display = "block";
-      })
-      task.addEventListener("mouseout", function () {
-        divBtnDeleteTask.style.display = "none";
-      })
+      // task.addEventListener("mouseover", function () {
+      //   divBtnDeleteTask.style.display = "block";
+      // })
+      // task.addEventListener("mouseout", function () {
+      //   divBtnDeleteTask.style.display = "none";
+      // })
 
       taskNameInput.focus();
 
-      // taskNameInput.value = "Filhote de Labrador";
-      // pictureForm.value = "https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg";
-      // descriptionForm.value = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident facere, iure laborum impedit rem tempore cum?";
 
       document.querySelectorAll("input").forEach((item) => item.value = "");
 
     })
   })
 }
-
-
-// let extraDivContact = document.getElementById("extraDivContact");
-// let btnOpenContact = document.getElementById("btnOpenContact");
-
-// let extraDivTeam = document.getElementById("extraDivTeam");
-// let btnOpenTeam = document.getElementById("btnOpenTeam");
 
 btnOpenForm.onclick = function () {
   if (extraDivForm.style.display == "none") {
@@ -186,12 +176,12 @@ btnAddTask.addEventListener("click", function () {
       }
     })
 
-    task.addEventListener("mouseover", function () {
-      divBtnDeleteTask.style.display = "block";
-    })
-    task.addEventListener("mouseout", function () {
-      divBtnDeleteTask.style.display = "none";
-    })
+    // task.addEventListener("mouseover", function () {
+    //   divBtnDeleteTask.style.display = "block";
+    // })
+    // task.addEventListener("mouseout", function () {
+    //   divBtnDeleteTask.style.display = "none";
+    // })
 
     taskNameInput.focus();
 
