@@ -17,28 +17,28 @@ let redTheme = document.getElementById("redTheme");
 let greenTheme = document.getElementById("greenTheme");
 let darkTheme = document.getElementById("darkTheme");
 
-blueTheme.onclick = function() {
+blueTheme.onclick = function () {
   let theme = document.getElementsByTagName('link')[0]
   theme.setAttribute("href", "./css/styleBlue.css")
 }
 
-redTheme.onclick = function() {
+redTheme.onclick = function () {
   let theme = document.getElementsByTagName('link')[0]
   theme.setAttribute("href", "./css/styleRed.css")
 }
 
-greenTheme.onclick = function() {
+greenTheme.onclick = function () {
   let theme = document.getElementsByTagName('link')[0]
   theme.setAttribute("href", "./css/styleGreen.css")
 }
 
-darkTheme.onclick = function() {
+darkTheme.onclick = function () {
   let theme = document.getElementsByTagName('link')[0]
   theme.setAttribute("href", "./css/styleDark.css")
 }
 
-let today = new Date().toLocaleDateString().split('/');
-let today2 = today[2] + '-' + (("0" + today[0]).slice(-2)) + '-' + (("0" + today[1]).slice(-2));
+let today = new Date();
+let today2 = today.getFullYear() + '-' + (("0" + (today.getMonth() + 1)).slice(-2)) + '-' + ("0" + today.getDate()).slice(-2);
 dateCompletion.setAttribute('min', today2);
 
 document.querySelector("form").onsubmit = function () { return false };
@@ -47,7 +47,7 @@ let taskList = localStorage.getItem("savedTasks")
   ? JSON.parse(localStorage.getItem("savedTasks"))
   : [];
 
-// Pra cada elemento do array de conteúdo vai chamar a função divMaker
+// Pra cada elemento do array no local storage ele chama a funcao addSavedTask e cria o card
 taskList.forEach(element => addSavedTask(element));
 
 function addSavedTask(object) {
@@ -99,10 +99,11 @@ function addSavedTask(object) {
   taskDateCompletion.innerHTML += `<p class="dateCompletion">${object.dateCompletion}</p>`;
   task.appendChild(taskDateCompletion);
 
-
-  function ifDate() {if (dateDifference <= 86400000) {
-    taskDateCompletion.classList.add("taskDateCompletionAnimation");
-  }}
+  function ifDate() {
+    if (dateDifference <= 86400000) {
+      taskDateCompletion.classList.add("taskDateCompletionAnimation");
+    }
+  }
 
   ifDate();
 
@@ -120,7 +121,6 @@ function addSavedTask(object) {
       ifDate();
       localStorage.setItem("savedTasks", JSON.stringify(taskList));
     }
-    
   })
 
   if (object.checkboxChecked) {
@@ -139,13 +139,28 @@ function addSavedTask(object) {
   btnDeleteTask.setAttribute("class", "btnDeleteTask");
   divBtnDeleteTask.appendChild(btnDeleteTask);
   btnDeleteTask.addEventListener("click", function () {
-    if (window.confirm("Tem certeza que deseja excluir esta tarefa?")) {
-      task.remove();
-      let objectIndex = taskList.indexOf(object);
-      taskList.splice(objectIndex, 1);
-      localStorage.setItem("savedTasks", JSON.stringify(taskList));
-    }
-  })
+    if (result = true) Swal.fire({
+      title: 'Atenção',
+      text: 'Você deseja excluir essa tarefa permanentemente?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Excluir',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Excluído!',
+          text: 'Sua tarefa foi excluida!',
+          icon: 'success'
+        }), task.remove();
+        let objectIndex = taskList.indexOf(object);
+        taskList.splice(objectIndex, 1);
+        localStorage.setItem("savedTasks", JSON.stringify(taskList));
+      }
+    });
+  });
 }
 
 btnOpenForm.onclick = function () {
@@ -164,16 +179,50 @@ btnAddTask.addEventListener("click", function () {
 
   if ((taskNameInput.value == "") || (dateCompletion.value == "")) {
     taskNameInput.focus();
-
-    alert("Por favor, preencha os 2 campos!");
+    Swal.fire({
+      title: 'Atenção',
+      text: 'Por favor, preencha os 2 campos!',
+      icon: 'warning',
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'OK',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    }).then((result) => { if (result.isConfirmed) { Swal.close() } });
 
   } else if (taskNameInput.value.length < 2) {
-    alert("A tarefa deve ter no mínimo 2 caracteres.");
+    Swal.fire({
+      title: 'Atenção',
+      text: 'A tarefa deve ter no mínimo 2 caracteres.',
+      icon: 'warning',
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'OK',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    }).then((result) => { if (result.isConfirmed) { Swal.close() } });
     taskNameInput.focus();
   } else if (taskNameInput.value.length > 100) {
-    alert("A tarefa deve ter no máximo 100 caracteres.");
-  }
-  else {
+    Swal.fire({
+      title: 'Atenção',
+      text: 'A tarefa deve ter no máximo 100 caracteres.',
+      icon: 'warning',
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'OK',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    }).then((result) => { if (result.isConfirmed) { Swal.close() } });
+  } else {
     tasks.style.height = "auto";
 
     let task = document.createElement("div");
@@ -225,17 +274,29 @@ btnAddTask.addEventListener("click", function () {
     btnDeleteTask.setAttribute("class", "btnDeleteTask");
     divBtnDeleteTask.appendChild(btnDeleteTask);
     btnDeleteTask.addEventListener("click", function () {
-      if (window.confirm("Tem certeza que deseja excluir esta tarefa?")) {
-        task.remove();
-        let objectIndex = taskList.indexOf(taskInfo);
-        taskList.splice(objectIndex, 1);
-        localStorage.setItem("savedTasks", JSON.stringify(taskList));
-      }
-    })
-
+      if (result = true(Swal.fire({
+        title: 'Atenção',
+        text: 'Você deseja excluir essa tarefa permanentemente?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Excluir',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: 'Excluído!',
+            text: 'Sua tarefa foi excluida!',
+            icon: 'success'
+          }), task.remove();
+          let objectIndex = taskList.indexOf(object);
+          taskList.splice(objectIndex, 1);
+          localStorage.setItem("savedTasks", JSON.stringify(taskList));
+        }
+      })));
+    });
     taskNameInput.focus();
-
-    document.querySelectorAll("input").forEach((item) => item.value = "");
 
     let taskInfo = {
       dateCreation: dateCreationFormat,
@@ -252,9 +313,11 @@ btnAddTask.addEventListener("click", function () {
 
     let dateDifference = Math.abs(dateCompletionToCompare - todayToCompareDate);
 
-    function ifDate() {if (dateDifference <= 86400000) {
-      taskDateCompletion.classList.add("taskDateCompletionAnimation");
-    }}
+    function ifDate() {
+      if (dateDifference <= 86400000) {
+        taskDateCompletion.classList.add("taskDateCompletionAnimation");
+      }
+    }
 
     ifDate();
 
@@ -271,15 +334,17 @@ btnAddTask.addEventListener("click", function () {
         taskInfo.checkboxChecked = false;
         ifDate();
         localStorage.setItem("savedTasks", JSON.stringify(taskList));
-
       }
     })
 
     taskList.push(taskInfo);
 
-    //Salvando as tarefas no Local Storage (console - application)
+    //Salvando as tarefas no Local Storage
     localStorage.setItem("savedTasks", JSON.stringify(taskList));
   }
+
+  document.querySelectorAll("input").forEach((item) => item.value = "");
+
 })
 
 btnOpenTeam.onclick = function () {
